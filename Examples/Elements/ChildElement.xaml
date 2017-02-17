@@ -1,0 +1,20 @@
+﻿<UserControl
+    x:Class="Examples.Elements.ChildElement"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Examples.Elements"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+
+    <Grid VerticalAlignment="Top">
+        <StackPanel VerticalAlignment="Top">
+            <TextBlock Text="Date and time" Margin="0,12,0,0" FontSize="20"/>
+            <TextBlock Text="1:30 PM, Thursday, Februrary 16, 2017" Margin="0,1,0,24" FontSize="15"/>
+
+            <ToggleSwitch Header="Set time automatically"/>
+            <ToggleSwitch Header="Set time zona automatically"/>
+
+            <TextBlock FontStyle="Italic" FontSize="13" Text="This child element is the same for example purposes"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

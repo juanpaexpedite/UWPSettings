@@ -1,0 +1,267 @@
+﻿<UserControl
+    x:Class="UWPSettings.SettingsPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="using:UWPSettings.Common"
+    xmlns:local="using:UWPSettings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+
+    <UserControl.Resources>
+        
+        <Style TargetType="TextBlock" x:Key="HeadingStyle">
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="Margin" Value="0,23,0,15"/>
+            <Setter Property="TextLineBounds" Value="Tight"/>
+            <Setter Property="TextTrimming" Value="Clip"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings"/>
+        </Style>
+
+        <Style TargetType="ContentDialog" x:Key="SettingsDialogBoxStyle" x:Name="SettingsDialogBoxStyle">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="MinHeight" Value="320" />
+            <!--These values are based on the values of the parent behavior in the visual tree, it should be about 5*200 + 24 but it is not-->
+            <Setter Property="MaxWidth" Value="1400" />
+            <Setter Property="MaxHeight" Value="840" />
+            <Setter Property="MinWidth" Value="320" />
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FullSizeDesired" Value="False"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ContentDialog">
+                        <Border x:Name="Container" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                            <Grid x:Name="LayoutRoot">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border x:Name="BackgroundElement" Background="{TemplateBinding Background}" FlowDirection="{TemplateBinding FlowDirection}" BorderThickness="{ThemeResource ContentDialogBorderWidth}" BorderBrush="{TemplateBinding BorderBrush}" MaxWidth="{TemplateBinding MaxWidth}" MaxHeight="{TemplateBinding MaxHeight}" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}">
+                                    <!--Changed Padding here to set full size in Mobile-->
+                                    <Grid x:Name="DialogSpace" VerticalAlignment="Stretch" Padding="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <!--Changed Margin here to set full size in Mobile-->
+                                        <ScrollViewer x:Name="ContentScrollViewer" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" ZoomMode="Disabled"  IsTabStop="False" Margin="0">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <ContentControl x:Name="Title" Margin="{ThemeResource ContentDialogTitleMargin}" Content="{TemplateBinding Title}" ContentTemplate="{TemplateBinding TitleTemplate}" FontSize="20" FontFamily="XamlAutoFontFamily" FontWeight="Normal" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Left" VerticalAlignment="Top" IsTabStop="False">
+                                                    <ContentControl.Template>
+                                                        <ControlTemplate TargetType="ContentControl">
+                                                            <ContentPresenter Content="{TemplateBinding Content}" MaxLines="2" TextWrapping="Wrap" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}" ContentTransitions="{TemplateBinding ContentTransitions}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                                        </ControlTemplate>
+                                                    </ContentControl.Template>
+                                                </ContentControl>
+                                                <ContentPresenter x:Name="Content" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" FontSize="{ThemeResource ControlContentThemeFontSize}" FontFamily="{ThemeResource ContentControlThemeFontFamily}" Margin="{ThemeResource ContentDialogContentMargin}" Foreground="{TemplateBinding Foreground}" Grid.Row="1" TextWrapping="Wrap" />
+                                            </Grid>
+                                        </ScrollViewer>
+                                        <!--Changed here because not using the content dialog command bar-->
+                                        <Grid x:Name="CommandSpace" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Visibility="Collapsed">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Border x:Name="Button1Host" Margin="{ThemeResource ContentDialogButton1HostMargin}" MinWidth="{ThemeResource ContentDialogButtonMinWidth}" MinHeight="{ThemeResource ContentDialogButtonMinHeight}" />
+                                            <Border x:Name="Button2Host" Margin="{ThemeResource ContentDialogButton2HostMargin}" MinWidth="{ThemeResource ContentDialogButtonMinWidth}" MinHeight="{ThemeResource ContentDialogButtonMinHeight}" Grid.Column="1" />
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+        <Style TargetType="ContentDialog" x:Key="SettingsDialogBoxMobileStyle" x:Name="SettingsDialogBoxMobileStyle" BasedOn="{StaticResource SettingsDialogBoxStyle}">
+            <Setter Property="FullSizeDesired" Value="True"/>
+        </Style>
+
+        <DataTemplate x:Key="SettingNarrowTemplate" x:DataType="c:Setting">
+            <Grid MinHeight="64">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <FontIcon VerticalAlignment="Center" Grid.Column="1" x:Name="SettingIcon" FontSize="24" Glyph="{x:Bind Icon}" FontFamily="{x:Bind FontFamily}"  Foreground="{ThemeResource SystemAccentColor}"/>
+                <StackPanel VerticalAlignment="Center" Grid.Column="3" Padding="0,0,0,2">
+                    <TextBlock Text="{x:Bind Title}" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}" FontSize="15"/>
+                    <TextBlock Text="{x:Bind Description}" TextWrapping="Wrap" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" FontSize="13" LineHeight="16"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="SettingWideTemplate" x:DataType="c:Setting">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <FontIcon x:Name="SettingIcon" FontSize="48" Glyph="{x:Bind Icon}" FontFamily="{x:Bind FontFamily}" Foreground="{ThemeResource SystemAccentColor}"/>
+                <TextBlock Text="{x:Bind Title}" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}" Grid.Row="1" Margin="0,8,0,0" HorizontalAlignment="Center" FontSize="15"/>
+                <TextBlock Text="{x:Bind Description}" Grid.Row="2" TextWrapping="Wrap" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" TextAlignment="Center" FontSize="13" LineHeight="16"/>
+            </Grid>
+        </DataTemplate>
+
+        <ItemsPanelTemplate x:Key="WidePanelTemplate" x:Name="WidePanelTemplate">
+            <ItemsWrapGrid HorizontalAlignment="Center" Orientation="Horizontal" MaximumRowsOrColumns="5" ItemHeight="192" ItemWidth="200">
+                <ItemsWrapGrid.ChildrenTransitions>
+                    <TransitionCollection/>
+                </ItemsWrapGrid.ChildrenTransitions>
+            </ItemsWrapGrid>
+        </ItemsPanelTemplate>
+
+        <ItemsPanelTemplate x:Key="NarrowPanelTemplate" x:Name="NarrowPanelTemplate">
+            <ItemsStackPanel>
+                <ItemsStackPanel.ChildrenTransitions>
+                    <TransitionCollection/>
+                </ItemsStackPanel.ChildrenTransitions>
+            </ItemsStackPanel>
+        </ItemsPanelTemplate>
+
+        <Style x:Key="WideGridViewItemStyle" TargetType="GridViewItem">
+            <Setter Property="Padding" Value="20,36,20,0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+        </Style>
+
+        <Style x:Key="NarrowGridViewItemStyle" TargetType="GridViewItem">
+            <Setter Property="Padding" Value="0,0,0,0"/>
+            <Setter Property="Margin" Value="16,0,16,0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+
+        <Style x:Key="TitleBarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="46"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="SettingsWidthGroups">
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HeaderBlock.FontSize" Value="18"/>
+                        <Setter Target="HeaderBlock.HorizontalAlignment" Value="Left"/>
+                        <Setter Target="HeaderBlock.Margin" Value="18,12,0,0"/>
+
+                        <Setter Target="SettingsGridView.Margin" Value="0,12,0,0"/>
+                        <Setter Target="SettingsGridView.ItemContainerStyle" Value="{StaticResource NarrowGridViewItemStyle}"/>
+                        <Setter Target="SettingsGridView.ItemTemplate" Value="{StaticResource SettingNarrowTemplate}"/>
+                        <!--Change the panel template to avoid visual flickering when the item template changes-->
+                        <!--I could also change the visibility and set a ListView but I prefer just one ItemsView-->
+                        <Setter Target="SettingsGridView.ItemsPanel" Value="{StaticResource NarrowPanelTemplate}"/>
+
+                        <Setter Target="SearchBox.HorizontalAlignment" Value="Stretch"/>
+                        <Setter Target="SearchBox.Width" Value="NaN"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid x:Name="ShadowHost" Margin="10" Background="Transparent" Grid.RowSpan="10" Grid.ColumnSpan="10"/>
+
+        <Border Margin="{x:Bind c:Conversion.ToDesktopThickness(12)}" BorderBrush="{ThemeResource SystemAccentColorLight1}" BorderThickness="{x:Bind c:Conversion.ToThickness(IsDialog), Mode=OneWay}" >
+
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+                <Grid.RowDefinitions>
+                    <!--Title Bar-->
+                    <RowDefinition Height="Auto"/>
+                    <!--Header-->
+                    <RowDefinition Height="Auto"/>
+                    <!--Search-->
+                    <RowDefinition Height="Auto"/>
+                    <!--GridView-->
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Border x:Name="TitleBar" Background="{ThemeResource SystemAccentColor}" Height="32" Visibility="{x:Bind IsDialog, Mode=OneWay}">
+                    <Grid>
+                        <Button Style="{StaticResource TitleBarButtonStyle}" Content="&#xE72B;" HorizontalAlignment="Left" Click="Back_Click" Visibility="{x:Bind IsDetails, Mode=OneWay}"/>
+                        <Button Style="{StaticResource TitleBarButtonStyle}" Content="&#xE711;" HorizontalAlignment="Right" Click="Close_Click"/>
+                    </Grid>
+                </Border>
+
+                <TextBlock x:Name="HeaderBlock" Grid.Row="1" Text="{x:Bind Title, Mode=OneWay}" Style="{StaticResource HeadingStyle}" Visibility="{x:Bind c:Conversion.ToInvertVisible(IsDetails),Mode=OneWay}" />
+
+                <!--In case you need the search option you can add keywords to ISetting-->
+                <AutoSuggestBox Visibility="Collapsed" x:Name="SearchBox" Grid.Row="2" PlaceholderText="Find a Setting"  QueryIcon="Find" Margin="16,20,16,12" HorizontalAlignment="Center" Width="336"/>
+
+                <!--In previous releases it was not supported an static resource with compiled binding but now is working-->
+                <GridView x:Name="SettingsGridView" SelectionMode="None" Grid.Row="3" Margin="0,28,0,0" Visibility="{x:Bind c:Conversion.ToInvertVisible(IsDetails),Mode=OneWay}" IsItemClickEnabled="True" ItemClick="SettingsGridView_ItemClick" ItemContainerStyle="{StaticResource WideGridViewItemStyle}" ItemsSource="{x:Bind ItemsSource, Mode=OneWay}" ItemsPanel="{StaticResource WidePanelTemplate}" ItemTemplate="{StaticResource SettingWideTemplate}"/>
+
+                <Grid x:Name="DetailsView" Grid.Row="1" Grid.RowSpan="3" Visibility="{x:Bind IsDetails, Mode=OneWay}">
+                    <Grid.ChildrenTransitions>
+                        <TransitionCollection>
+                            <PopupThemeTransition/>
+                        </TransitionCollection>
+                    </Grid.ChildrenTransitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="DetailsHeaderPanel">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid x:Name="DetailsHeaderIcon" Margin="2,0,2,0" Width="48" Height="48">
+                            <TextBlock Text="{x:Bind CurrentItem.Icon, Mode=OneWay}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{x:Bind CurrentItem.FontFamily, Mode=OneWay}"/>
+                        </Grid>
+                        <TextBlock VerticalAlignment="Center" Grid.Column="1" x:Name="DetailsHeaderBlock" Text="{x:Bind CurrentItem.Title, Mode=OneWay}" Margin="0,0,0,7" FontSize="28" FontWeight="SemiLight" OpticalMarginAlignment="TrimSideBearings" TextLineBounds="Full"/>
+                    </Grid>
+
+                    <Grid x:Name="DetailsPanel" Grid.Row="1"  Margin="16,0,12,0">
+                        <Grid.ChildrenTransitions>
+                            <TransitionCollection>
+                                <ContentThemeTransition/>
+                            </TransitionCollection>
+                        </Grid.ChildrenTransitions>
+                    </Grid>
+
+
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
