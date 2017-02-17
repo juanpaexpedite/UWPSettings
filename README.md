@@ -48,4 +48,4 @@ In order to add support for markdown it is required the UWP Community Toolkit. I
 
 If you found the library useful ☺, try and remove ads from any of my UWP apps you consider insteresting. I am preparing some of them and it will help to continue with them.
 
-More information about my apps and development at [@juanpaexpedite]("http://www.twitter.com/juanpaexpedite") and in my [blog]("http://mareinsula.wordpress.com")
+More information about my apps and development at [@juanpaexpedite](http://www.twitter.com/juanpaexpedite) and in my [blog](http://mareinsula.wordpress.com)
