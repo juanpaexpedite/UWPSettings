@@ -28,7 +28,7 @@ namespace Examples.Jobs
         {
             var type = typeof(ChildElement);
             var font = "Segoe MDL2 Assets";
-            var specialfont = "Assets/Fonts/SetMDL2.ttf#Settings MDL2 Assets";
+            var specialfont = "ms-appx:///Assets/Fonts/SetMDL2.ttf#Settings MDL2 Assets";
 
             var system = new Setting("\uE770", font, "System", "Display, notifications, power", type);
             var devices = new Setting("\uE772", font, "Devices", "Bluetooth, printers, mouse", type);
@@ -50,7 +50,7 @@ namespace Examples.Jobs
             var type = typeof(ChildElement);
 
             var font = "Segoe MDL2 Assets";
-            var hubfont = "Assets/Fonts/FHubMDL2.ttf#Feedback Hub MDL2 Assets";
+            var hubfont = "ms-appx:///Assets/Fonts/FHubMDL2.ttf#Feedback Hub MDL2 Assets";
 
             var markdown = new Uri("ms-appx:///Assets/Data/Example.md");
 
