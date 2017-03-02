@@ -24,7 +24,7 @@ _All details are easy to understand in the ExamplesJobs.cs class_
 
 ## Window Dialog
 
-The Window Dialog is opened with the WindowManager, it contains the logic to open a model content dialog with titlebar with an option to 'navigate' to a IsDetail section. You can set a header and icon header to simplify tasks.
+The Window Dialog is opened with the WindowManager, it contains the logic to open a modal content dialog with titlebar with an option to 'navigate' to a IsDetail section. You can set a header and icon header to simplify tasks.
 
     private async void LaunchExampleSeven()
     {
