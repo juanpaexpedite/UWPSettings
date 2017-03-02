@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{F720E8E9-D3DF-4FE9-9983-DDBD61A16876}"
 	ProjectSection(SolutionItems) = preProject
+		Accentcolors.jpg = Accentcolors.jpg
+		Achievements.jpg = Achievements.jpg
+		Badges.jpg = Badges.jpg
+		CrostiniExample.jpg = CrostiniExample.jpg
 		Example1.jpg = Example1.jpg
 		Example2.jpg = Example2.jpg
 		Example3.jpg = Example3.jpg

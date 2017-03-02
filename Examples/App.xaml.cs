@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWPSettings.Managers;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -68,6 +69,8 @@ namespace Examples
                     // parameter
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
+
+                SystemService.HideStatusBar();
                 // Ensure the current window is active
                 Window.Current.Activate();
             }

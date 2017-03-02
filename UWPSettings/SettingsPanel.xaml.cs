@@ -173,8 +173,6 @@ namespace UWPSettings
             this.Loaded += SettingsPane_Loaded;
 
             this.Unloaded += SettingsPanel_Unloaded;
-
-            
         }
         #endregion
 

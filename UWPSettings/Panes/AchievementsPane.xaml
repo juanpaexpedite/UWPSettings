@@ -1,0 +1,33 @@
+﻿<UserControl
+    x:Class="UWPSettings.Panes.AchievementsPane"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="using:UWPSettings.Common"
+    xmlns:ui="using:UWPSettings.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+
+    <Grid>
+        <GridView ItemsSource="{x:Bind ItemsSource, Mode=OneWay}">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="c:Badge">
+                    <Grid Width="104" Height="148" Margin="5" x:Name="BadgeItem" Background="Transparent" Tapped="BadgeItem_Tapped" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <FlyoutBase.AttachedFlyout>
+                            <Flyout>
+                            <ui:BadgeInformation BadgeSource="{Binding}"/>
+                            </Flyout>
+                        </FlyoutBase.AttachedFlyout>
+
+                        <ui:BadgeElement BadgeSource="{Binding}"/>
+                        <TextBlock Grid.Row="1" Text="{x:Bind Title,Mode=OneWay}" TextAlignment="Center" FontSize="15" TextWrapping="Wrap" MaxLines="2" TextTrimming="WordEllipsis" Typography.CaseSensitiveForms="True" Typography.DiscretionaryLigatures="True" Typography.StylisticSet20="True"/>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+    </Grid>
+</UserControl>

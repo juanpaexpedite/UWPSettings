@@ -183,24 +183,14 @@
                         <Setter Target="HeaderBlock.FontSize" Value="18"/>
                         <Setter Target="HeaderBlock.HorizontalAlignment" Value="Left"/>
                         <Setter Target="HeaderBlock.Margin" Value="18,12,0,0"/>
-
-                        <Setter Target="SettingsGridView.Margin" Value="0,12,0,0"/>
-                        <Setter Target="SettingsGridView.ItemContainerStyle" Value="{StaticResource NarrowGridViewItemStyle}"/>
-                        <Setter Target="SettingsGridView.ItemTemplate" Value="{StaticResource SettingNarrowTemplate}"/>
-                        <!--Change the panel template to avoid visual flickering when the item template changes-->
-                        <!--I could also change the visibility and set a ListView but I prefer just one ItemsView-->
-                        <Setter Target="SettingsGridView.ItemsPanel" Value="{StaticResource NarrowPanelTemplate}"/>
-
-                        <Setter Target="SearchBox.HorizontalAlignment" Value="Stretch"/>
-                        <Setter Target="SearchBox.Width" Value="NaN"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <Grid x:Name="ShadowHost" Margin="10" Background="Transparent" Grid.RowSpan="10" Grid.ColumnSpan="10"/>
+        <Grid x:Name="ShadowHost" Background="Transparent" Grid.RowSpan="10" Grid.ColumnSpan="10"/>
 
-        <Border Margin="{x:Bind c:Conversion.ToDesktopThickness(12)}" BorderBrush="{ThemeResource SystemAccentColorLight1}" BorderThickness="{x:Bind c:Conversion.ToThickness(IsDialog), Mode=OneWay}" >
+        <Border  BorderBrush="{ThemeResource SystemAccentColorLight1}" BorderThickness="{x:Bind c:Conversion.ToThickness(IsDialog), Mode=OneWay}" >
 
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
                 <Grid.RowDefinitions>
@@ -251,7 +241,7 @@
                         <TextBlock VerticalAlignment="Center" Grid.Column="1" x:Name="DetailsHeaderBlock" Text="{x:Bind CurrentItem.Title, Mode=OneWay}" Margin="0,0,0,7" FontSize="28" FontWeight="SemiLight" OpticalMarginAlignment="TrimSideBearings" TextLineBounds="Full"/>
                     </Grid>
 
-                    <Grid x:Name="DetailsPanel" Grid.Row="1"  Margin="16,0,12,0">
+                    <Grid x:Name="DetailsPanel" Grid.Row="1"  Margin="0">
                         <Grid.ChildrenTransitions>
                             <TransitionCollection>
                                 <ContentThemeTransition/>

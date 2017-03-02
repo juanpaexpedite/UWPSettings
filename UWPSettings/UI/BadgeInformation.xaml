@@ -1,0 +1,27 @@
+﻿<UserControl
+    x:Class="UWPSettings.UI.BadgeInformation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPSettings.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Width="360" VerticalAlignment="Top" MinHeight="100">
+
+    <!--The Feedback Hub uses a width of 400 I prefer 360 to avoid more navigations-->
+    <Grid Width="360" Padding="0" VerticalAlignment="Top" MinHeight="100" Background="Transparent">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="112"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        
+        <local:BadgeElement HorizontalAlignment="Left" BadgeSource="{x:Bind BadgeSource, Mode=OneWay}"/>
+
+        <StackPanel Grid.Column="1">
+        <TextBlock Text="{x:Bind BadgeSource.Title, Mode=OneWay}" FontWeight="SemiBold" FontSize="15" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBlock Visibility="{x:Bind BadgeSource.Earned, Mode=OneWay}" Text="{x:Bind ToEarned(BadgeSource.EarnedDateTime), Mode=OneWay}" FontWeight="Normal" FontSize="12" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+
+        <TextBlock Text="{x:Bind BadgeSource.Description}" Grid.Column="1" FontSize="15" Margin="0,15,0,0"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

@@ -15,16 +15,22 @@ namespace Examples.Jobs
         public static async Task LaunchExampleOne()
         {
             var title = "Example One Settings";
-            await WindowManager.ShowDialog(title, SampleListOne());
+            await WindowManager.ShowSettingsDialog(title, SampleListOne());
         }
 
         public static async Task LaunchExampleTwo()
         {
             var title = "Menu";
-            await WindowManager.ShowDialog(title, SampleListTwo());
+            await WindowManager.ShowSettingsDialog(title, SampleListTwo());
         }
 
-        private static List<Setting> SampleListOne()
+        public static async Task LaunchExampleThree()
+        {
+            var title = "Menu";
+            await WindowManager.ShowSettingsDialog(title, SampleListTwo(),0);
+        }
+
+        public static List<Setting> SampleListOne()
         {
             var type = typeof(ChildElement);
             var font = "Segoe MDL2 Assets";
@@ -45,7 +51,7 @@ namespace Examples.Jobs
             return new List<Setting> { system, devices, network, personalization, apps, accounts, time, gaming, ease, privacy, update };
         }
 
-        private static List<Setting> SampleListTwo()
+        public static List<Setting> SampleListTwo()
         {
             var type = typeof(ChildElement);
 
@@ -83,6 +89,32 @@ namespace Examples.Jobs
             }
             var showdialog = new MessageDialog(message, setting.Title);
             await showdialog.ShowAsync();
+        }
+
+        /// <summary>
+        /// You can visually search the colors from the App: UWP Technical Guide -> Colors -> Accent
+        /// </summary>
+        /// <returns></returns>
+        public static List<Badge> SampleBadges()
+        {
+            var badge0 = new Badge("Feedback fledgling", "Submit 50 posts", Badge.StarNumbers.None, true, DateTime.Now, ThemeColors.Orange16, "\uED15");
+
+            var badge1 = new Badge("Feedback fledgling", "Submit 50 posts", Badge.StarNumbers.One, true, DateTime.Now, ThemeColors.Orange16, "\uED15");
+            var badge2 = new Badge("So it begins", "Submit 50 posts", Badge.StarNumbers.One, true, DateTime.Now, ThemeColors.Cyan151, "\uE7C1");
+            var badge3 = new Badge("Ninja cat", "Submit 50 posts", Badge.StarNumbers.None, true, DateTime.Now, ThemeColors.Cobalt207, "🐱‍💻", "Segoe UI Emoji");
+
+            var badge4 = new Badge("Feedback fanatic", "Submit 50 posts", Badge.StarNumbers.Two, true, DateTime.Now, ThemeColors.Orange16, "\uED15");
+            var badge5 = new Badge("The journey continues", "Submit 50 posts", Badge.StarNumbers.Two, true, DateTime.Now, ThemeColors.Cyan151, "\uE7C1");
+            var badge6 = new Badge("Business cat", "Submit 50 posts", Badge.StarNumbers.None, true, DateTime.Now, ThemeColors.Cobalt207, "🐱‍👓", "Segoe UI Emoji");
+
+
+            var badge7 = new Badge("Feedback phenom", "Submit 50 posts", Badge.StarNumbers.Three, false, DateTime.Now, ThemeColors.Orange16, "\uED15");
+            var badge8 = new Badge("Epic quest", "Submit 50 posts", Badge.StarNumbers.Three, false, DateTime.Now, ThemeColors.Cyan151, "\uE7C1");
+            var badge9 = new Badge("Astrocat", "Submit 50 posts", Badge.StarNumbers.None, false, DateTime.Now, ThemeColors.Cobalt207,  "🐱‍🚀", "Segoe UI Emoji");
+
+            var badges = new List<Badge> { badge0, badge1, badge2, badge3, badge4, badge5, badge6, badge7, badge8, badge9 };
+
+            return badges;
         }
 
     }

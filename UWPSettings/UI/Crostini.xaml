@@ -1,0 +1,33 @@
+﻿<UserControl
+    x:Class="UWPSettings.UI.Crostini"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPSettings.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Width="{x:Bind DefaultWidth,Mode=OneWay}" MinHeight="60">
+
+    <Border Background="{ThemeResource SystemAccentColor}"  Width="{x:Bind DefaultWidth,Mode=OneWay}" MinHeight="60" VerticalAlignment="Top">
+        <Border BorderThickness="1,1,0,1"  BorderBrush="#33FFFFFF">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="{x:Bind Icon, Mode=OneWay}" Visibility="{x:Bind Invert(IsIndeterminate), Mode=OneWay}" FontFamily="Segoe MDL2 Assets" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" Grid.RowSpan="2" Margin="0,4,0,0"/>
+                <ProgressRing Foreground="White" IsActive="{x:Bind IsIndeterminate, Mode=OneWay}"  VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="24" Grid.RowSpan="2" Margin="0,20,0,0"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Foreground="White" Text="{x:Bind Title, Mode=OneWay}" FontSize="16" Margin="0,8,8,0" VerticalAlignment="Top" HorizontalAlignment="Left" OpticalMarginAlignment="TrimSideBearings" TextWrapping="Wrap" />
+                <TextBlock Grid.Row="1" Grid.Column="1" Foreground="#99FFFFFF" Text="{x:Bind Text, Mode=OneWay}" FontSize="16" Margin="0,0,8,8" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" OpticalMarginAlignment="TrimSideBearings" />
+
+                <ContentPresenter Visibility="{x:Bind IsNull(ContentElement),Mode=OneWay}" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="2" Content="{x:Bind ContentElement, Mode=OneWay}" Margin="8,8,8,12"/>
+
+            </Grid>
+        </Border>
+    </Border>
+</UserControl>
